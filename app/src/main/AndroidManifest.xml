@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bottlerunner.api_attempt_1">
 
+<!--    for api calls internet permission is added and usesClearTextTraffic is enabled-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application

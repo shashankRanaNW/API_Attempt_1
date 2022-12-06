@@ -3,6 +3,7 @@ package com.bottlerunner.api_attempt_1
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,14 +13,16 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class MainActivity : AppCompatActivity() {
+
     private var recyclerView: RecyclerView? = null
+    private lateinit var tv: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView = findViewById<View>(R.id.recycler_view) as RecyclerView
-        recyclerView!!.setHasFixedSize(true)
+        tv = findViewById<TextView>(R.id.textView)
+//        recyclerView!!.setHasFixedSize(true)
         recyclerView!!.layoutManager = LinearLayoutManager(this)
         connectAndGetApiData()
     }
@@ -34,13 +37,16 @@ class MainActivity : AppCompatActivity() {
                 .build()
         }
         val movieApiService: MovieApiService? =
-            MainActivity.Companion.retrofit?.create<MovieApiService>(
-                MovieApiService::class.java
-            )
+            MainActivity.Companion.retrofit?.create<MovieApiService>(MovieApiService::class.java)
         val call: Call<MovieResponse>? =
             movieApiService?.getTopRatedMovies(MainActivity.Companion.API_KEY)
+
+//        call1
         call?.enqueue(object : Callback<MovieResponse?> {
-            override fun onResponse(call: Call<MovieResponse?>?, response: Response<MovieResponse?>) {
+            override fun onResponse(
+                call: Call<MovieResponse?>,
+                response: Response<MovieResponse?>
+            ) {
                 val movies: List<Movie>? = response.body()?.results
                 recyclerView!!.adapter = movies?.let {
                     MoviesAdapter(
@@ -48,14 +54,17 @@ class MainActivity : AppCompatActivity() {
                         applicationContext
                     )
                 }
-//                recyclerView!!.layoutManager = LinearLayoutManager(this@MainActivity)
                 Log.d(MainActivity.Companion.TAG, "Number of movies received: " + movies?.size)
+
+//                tv.setText(call.toString() )
             }
 
-            override fun onFailure(call: Call<MovieResponse?>?, throwable: Throwable) {
+            override fun onFailure(call: Call<MovieResponse?>, throwable: Throwable) {
                 Log.e(MainActivity.Companion.TAG, throwable.toString())
             }
         })
+
+
     }
 
     companion object {

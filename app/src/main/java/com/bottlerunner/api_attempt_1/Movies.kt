@@ -3,64 +3,19 @@ package com.bottlerunner.api_attempt_1
 import com.google.gson.annotations.SerializedName
 
 
-class Movie(
-    @field:SerializedName("poster_path") var posterPath: String,
-    @field:SerializedName("adult") var isAdult: Boolean,
-    @field:SerializedName("overview") var overview: String,
-    @field:SerializedName("release_date") var releaseDate: String,
-    genreIds: List<Int>,
-    id: Int,
-    originalTitle: String,
-    originalLanguage: String,
-    title: String,
-    backdropPath: String,
-    popularity: Double,
-    voteCount: Int,
-    video: Boolean,
-    voteAverage: Double
-) {
-
-    @SerializedName("genre_ids")
-    var genreIds: List<Int> = ArrayList()
-
-    @SerializedName("id")
-    var id: Int
-
-    @SerializedName("original_title")
-    var originalTitle: String
-
-    @SerializedName("original_language")
-    var originalLanguage: String
-
-    @SerializedName("title")
-    var title: String
-
-    @SerializedName("backdrop_path")
-    var backdropPath: String
-
-    @SerializedName("popularity")
-    var popularity: Double
-
-    @SerializedName("vote_count")
-    var voteCount: Int
-
-    @SerializedName("video")
-    var video: Boolean
-
-    @SerializedName("vote_average")
+data class Movie(
+    @SerializedName("poster_path") var posterPath: String,
+    @SerializedName("adult") var isAdult: Boolean,
+    @SerializedName("overview") var overview: String,
+    @SerializedName("release_date") var releaseDate: String,
+    var genreIds: List<Int>,
+    var id: Int,
+    var originalTitle: String,
+    var originalLanguage: String,
+    var title: String,
+    var backdropPath: String,
+    var popularity: Double,
+    var voteCount: Int,
+    var video: Boolean,
     var voteAverage: Double
-
-    init {
-        this.genreIds = genreIds
-        this.id = id
-        this.originalTitle = originalTitle
-        this.originalLanguage = originalLanguage
-        this.title = title
-        this.backdropPath = backdropPath
-        this.popularity = popularity
-        this.voteCount = voteCount
-        this.video = video
-        this.voteAverage = voteAverage
-    }
-
-}
+)
